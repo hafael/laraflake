@@ -1,0 +1,35 @@
+{
+    "name": "hafael/laraflake",
+    "description": "Laravel Package based on Twitter Snowflake ID Generator (64 bit ID).",
+    "keywords": ["laravel", "id", "shard"],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "5.2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*",
+        "orchestra/testbench": "~3.0",
+        "laravel/framework": "5.2.*"
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Rafael Villa-Verde",
+            "email": "villa655321verde@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hafael\\LaraFlake\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/LaraFlakeTest.php"
+        ],
+        "psr-4": {
+            "Hafael\\LaraFlake\\": "packages/hafael/laraflake/src"
+        }
+    },
+    "minimum-stability": "dev"
+}
