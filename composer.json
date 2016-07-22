@@ -1,7 +1,7 @@
 {
     "name": "hafael/laraflake",
     "description": "Laravel Package based on Twitter Snowflake ID Generator (64 bit ID).",
-    "keywords": ["laravel", "id", "shard"],
+    "keywords": ["laravel", "id", "shard", "64bit", "shard", "snowflake"],
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "5.2.*"
@@ -31,5 +31,11 @@
             "Hafael\\LaraFlake\\": "packages/hafael/laraflake/src"
         }
     },
-    "minimum-stability": "dev"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
