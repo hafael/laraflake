@@ -87,3 +87,11 @@ Just create a pull request.
 License
 ----
 Apache 2.0
+
+## Inspiration
+Inspired on simplicity from [Particle by Silviu Schiau](https://github.com/sschiau/Particle.php").
+
+ - [Unique ID generation in distributed systems](http://pt.slideshare.net/davegardnerisme/unique-id-generation-in-distributed-systems)
+ - [Sharding & IDs at Instagram](http://instagram-engineering.tumblr.com/post/10853187575/sharding-ids-at-instagram)
+ - [Twitter IDs](https://dev.twitter.com/overview/api/twitter-ids-json-and-snowflake)
+
