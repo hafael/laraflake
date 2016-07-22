@@ -94,4 +94,3 @@ Inspired on simplicity from [Particle by Silviu Schiau](https://github.com/sschi
  - [Unique ID generation in distributed systems](http://pt.slideshare.net/davegardnerisme/unique-id-generation-in-distributed-systems)
  - [Sharding & IDs at Instagram](http://instagram-engineering.tumblr.com/post/10853187575/sharding-ids-at-instagram)
  - [Twitter IDs](https://dev.twitter.com/overview/api/twitter-ids-json-and-snowflake)
-
