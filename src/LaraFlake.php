@@ -15,37 +15,26 @@ class LaraFlake
     {
 
         /**
-		* Current Timestamp - 41 bits
-		*/
-        $curr_timestamp = floor(microtime(true) * 1000);
-
-        /**
-        * Subtract custom epoch from current time
+        * Current Timestamp - 41 bits
         */
-        $curr_timestamp -= config('laraflake.initial_epoch');
-
-        /**
-        * Create a initial base for ID
-        */
-        $base = decbin(pow(2,40) - 1 + $curr_timestamp);
+        $curr_timestamp = floor(microtime(true) * 1000) - config('laraflake.initial_epoch');
 
         /**
         * Get ID of database server (10 bits)
         * Up to 512 machines
         */
-        $shard_id = decbin(pow(2,9) - 1 + self::getServerShardId());
+        $shard_id = self::getServerShardId();
 
         /**
         * Generate a random number (12 bits)
         * Up to 2048 random numbers per db server
         */
         $random_part = mt_rand(1, pow(2,11)-1);
-        $random_part = decbin(pow(2,11)-1 + $random_part);
 
         /**
         * Concatenate the final ID
         */
-        $final_id = bindec($base) . bindec($shard_id) . bindec($random_part);
+        $final_id = ($curr_timestamp << 41) | ($shard_id << 10) | ($random_part << 12);
         /**
         * Return unique 64bit ID
         */
