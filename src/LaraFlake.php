@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\DB;
 class LaraFlake
 {
 
+    const INITIAL_EPOCH = 1451625443000;
+
+    const DEFAULT_SHARD_ID = 1;
+
     /**
      * Generate the 64bit unique ID.
      * @return number BIGINT
@@ -19,10 +23,14 @@ class LaraFlake
 		*/
         $curr_timestamp = floor(microtime(true) * 1000);
 
+        if ( ! is_int(config('laraflake.initial_epoch', self::INITIAL_EPOCH)) ) {
+            throw new \InvalidArgumentException('Initial epoch is invalid. Must be an integer');
+        }
+
         /**
         * Subtract custom epoch from current time
         */
-        $curr_timestamp -= config('laraflake.initial_epoch');
+        $curr_timestamp -= config('laraflake.initial_epoch', self::INITIAL_EPOCH);
 
         /**
         * Create a initial base for ID
@@ -33,6 +41,13 @@ class LaraFlake
         * Get ID of database server (10 bits)
         * Up to 512 machines
         */
+
+        $node = self::getServerShardId();
+
+        if ( ! is_int($node) || $node < 0 || $node > 1023 ) {
+            throw new \InvalidArgumentException('The Shard ID identifier must be a 10 bit integer between 0 and 1023.');
+        }
+
         $shard_id = decbin(pow(2,9) - 1 + self::getServerShardId());
 
         /**
@@ -59,6 +74,11 @@ class LaraFlake
      */
     private static function getServerShardId()
     {
+
+        if(config('laraflake.provider', 'local') !== 'database'){
+            return config('laraflake.shard_id', self::DEFAULT_SHARD_ID);
+        }
+
         try {
             $database_name = DB::getName();
         }catch (\PDOException $e){
@@ -90,6 +110,6 @@ class LaraFlake
      */
     public static function getTimeFromID($id)
     {
-        return bindec(substr(decbin($id),0,41)) - pow(2,40) + 1 + config('laraflake.initial_epoch');
+        return bindec(substr(decbin($id),0,41)) - pow(2,40) + 1 + config('laraflake.initial_epoch', self::INITIAL_EPOCH);
     }
 }
