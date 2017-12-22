@@ -60,7 +60,7 @@ class LaraFlake
         /**
         * Concatenate the final ID
         */
-        $final_id = bindec($base . $shard_id . $random_part);
+        $final_id = bindec($base) . bindec($shard_id) . bindec($random_part);
 
         /**
         * Return unique 64bit ID
