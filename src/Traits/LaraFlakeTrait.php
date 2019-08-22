@@ -8,8 +8,6 @@ trait LaraFlakeTrait
 {
     protected static function bootLaraFlakeTrait()
     {
-        parent::boot();
-
         static::creating(function($model){
             $model->{$model->getKeyName()} = LaraFlake::generateID();
         });
